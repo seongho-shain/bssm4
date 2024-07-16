@@ -8,9 +8,10 @@ key_dict = json.loads(st.secrets["textkey"])
 cred = credentials.Certificate(key_dict)
 
 # Initialize the app with a service account, granting admin privileges
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://bssmtest-44b0f-default-rtdb.firebaseio.com/'
-})
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://bssmtest-44b0f-default-rtdb.firebaseio.com/'
+    })
 
 # As an admin, the app has access to read and write all data, regradless of Security Rules
 ref = db.reference('led')
